@@ -6,3 +6,6 @@ def unstack(df, i_col, p_col, v_col):
         else:
             wide = wide.join(df[(df[p_col] == cats[i])].select(i_col, v_col).withColumnRenamed(v_col, cats[i]), on=i_col, how='outer')
     return wide
+
+def filterbygroup(df, group, boolean):
+    return df.join(df[boolean].groupby(group), on=group, how='inner')
